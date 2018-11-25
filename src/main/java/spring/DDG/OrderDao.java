@@ -1,17 +1,44 @@
 package spring.DDG;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 public class OrderDao {
+	//shouldn't this EntityManagerFactory be static?
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("DijkstrasDryGoods");
 
+	//adding cleanUp method for when the console based service side program is closed
+	public void cleanUp() {
+		emfactory.close();
+	}
+	
 	public void insertOrder(Order orderToAdd) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(orderToAdd);
 		em.getTransaction().commit();
-		
+	}
+	
+	//adding service side option to view customer's order by order number
+	public Order viewCustomerOrder(int on) {
+		EntityManager em = emfactory.createEntityManager();
+		em.getTransaction().begin();
+		Order found = em.find(Order.class, on);
+		em.close();
+		return found;
+	}
+	
+	//adding service side option to view full inventory
+	public List<Order> showAllInventory() {
+		EntityManager em = emfactory.createEntityManager();
+		//I may need to change the query criteria
+		TypedQuery<Order> typedQuery = em.createQuery("select orderNumber from Order orderNumber", Order.class);
+		List<Order> allInventory = typedQuery.getResultList();
+		em.close();
+		return allInventory;
 	}
 }

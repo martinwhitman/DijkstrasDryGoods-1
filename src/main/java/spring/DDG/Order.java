@@ -140,5 +140,10 @@ public class Order {
 		this.hc = hc;
 	}
 	
+	//adding for use in view full inventory method
+	public String returnOrderDetails() {
+		return store + ": " + item;
+	}
+	
 	
 }
