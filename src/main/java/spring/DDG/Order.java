@@ -26,6 +26,7 @@ public class Order {
 	private int hc;
 	private String street;
 	private String city;
+	
 	public String getCity() {
 		return city;
 	}
@@ -138,6 +139,12 @@ public class Order {
 	}
 	public void setHc(int hc) {
 		this.hc = hc;
+	}
+	
+	//adding for use in view full inventory method and view order(s) methods
+	public String returnOrderDetails() {
+		return ("Order Number: " + orderNumber + "Motherboards: " + mb + "Processors: " + processor + "Solid State Drives: " + ssd + "Bluray Burners: " + BRB + "CPU Air Coolers: " + cac + "SDRAM DDR4: " + sdram + "Gaming Video Cards: " + gvc + "Power Supplies: " + ps + "Steel Towers: " + st + "Hard Drives: " + hd + "Booksize Barebones Systems: " + bbs + "HDMI Cables: " + hc + "Street: " + street + "City: " + city);
+		//missing shipping method choice?
 	}
 	
 	
