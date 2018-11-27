@@ -43,12 +43,12 @@ public class OrderDao {
 	}
 	
 	//adding service side option to view the next order in line
-	public Order viewOrders() {
+	/*public Order viewOrders() {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
 		//Order nextOrder = 
 		return nextOrder;
-	}
+	}*/
 	
 	//adding service side option to edit an item's inventory
 	
