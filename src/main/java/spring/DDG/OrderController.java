@@ -28,6 +28,13 @@ public class OrderController {
 		modelAndView.addObject("o", order);
 		return modelAndView;
 	}
+	@RequestMapping(value="/trackOrder")
+	public ModelAndView trackOrder() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("orderTrack");
+		
+		return modelAndView;
+	}
 	@Bean
 	public OrderDao dao() {
 		OrderDao bean = new OrderDao();

@@ -1,3 +1,4 @@
+
 package spring.DDG;
 
 import javax.persistence.Entity;
@@ -26,6 +27,9 @@ public class Order {
 	private int hc;
 	private String street;
 	private String city;
+	private String zip;
+	private Shipping shipType;
+	private String state;
 	
 	public String getCity() {
 		return city;
@@ -33,15 +37,13 @@ public class Order {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	private String state;
+	
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
 	}
-	private String zip;
-	private Shipping shipType;
 	
 	
 	public String getStreet() {
