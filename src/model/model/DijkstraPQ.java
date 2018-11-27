@@ -228,7 +228,7 @@ public class DijkstraPQ {
             //this.order = new PriorityQueue<>();
             //initialize adjacency lists for all the vertices
             for (int i = 0; i <vertices ; i++) {
-                adjacencylist[i] = new LinkedList<>();
+                adjacencylist[i] = new LinkedList<Order>();
             }
         }
         public void addOrder(String orderNumber,int source, int destination, int weight) {
@@ -288,9 +288,8 @@ public class DijkstraPQ {
             //Initialize priority queue
             //override the comparator to do the sorting based keys
            // PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(vertices, new Comparator<Pair<Integer, Integer>>() {
-            PriorityQueue<Triplet<Integer, Integer, String>> pq = new PriorityQueue<>(vertices, new Comparator<Triplet<Integer, Integer,String>>() {   
-            @Override
-                public int compare(Triplet<Integer, Integer, String> p1, Triplet<Integer, Integer,String> p2) {
+            PriorityQueue<Triplet<Integer, Integer, String>> pq = new PriorityQueue<Triplet<Integer, Integer, String>>(vertices, new Comparator<Triplet<Integer, Integer,String>>() {   
+            public int compare(Triplet<Integer, Integer, String> p1, Triplet<Integer, Integer,String> p2) {
                     //sort using distance values
                     int key1 = p1.getValue0();
                     int key2 = p2.getValue0();
@@ -299,7 +298,7 @@ public class DijkstraPQ {
             });
             //create the pair for for the first index, 0 distance 0 index
             distance[0] = 0;
-            Triplet<Integer, Integer,String> p0 = new Triplet<>(distance[0],0,"Source");
+            Triplet<Integer, Integer,String> p0 = new Triplet<Integer, Integer, String>(distance[0],0,"Source");
             //add it to pq
             pq.offer(p0);
             /**Debug variable to verify that algorithm is running
@@ -341,7 +340,7 @@ public class DijkstraPQ {
                             //System.out.println("Distance of new Key: "+newKey);
                             System.out.println("PQ: "+pq.toString());
                             if(currentKey>newKey){
-                                Triplet<Integer, Integer,String> p = new Triplet<>(newKey, destination,currentOrder);
+                                Triplet<Integer, Integer,String> p = new Triplet<Integer, Integer, String>(newKey, destination,currentOrder);
                                 order.setDistance(newKey);
                                 pq.offer(p);
                                 System.out.println("PQ set: "+pq.toString());

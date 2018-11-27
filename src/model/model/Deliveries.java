@@ -2,6 +2,7 @@ package model;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
@@ -11,7 +12,27 @@ import model.DijkstraPQ.Graph;
 import model.DijkstraPQ.Order;
 //update
 public class Deliveries extends Graph{
+	public class Orders implements Iterable <Order>{
+		Vector<Order> orderList;
+		
+		Orders(){
+			orderList = new Vector<Order>(); 
+						
+		}
+		/* Adds Iterable for each use*/
+	    public Iterator<Order> iterator() {
+	        return orderList.iterator();
+	    }
+		public void addOrder(Order incomingOrder) {
+			orderList.addElement(incomingOrder);
+			System.out.println("Order Added.");
+		}
+
+	
+	}
+	
 	//Vertices here are known as Locations
+	
 	Deliveries(int locations) {
 		//Locations determines how many stops there are to make
 		super(locations);
@@ -37,6 +58,20 @@ public class Deliveries extends Graph{
 		
 		// TODO Auto-generated constructor stub
 	}/*
+	*/
+	Deliveries(int locations, Orders incomingOrders){
+		super(locations);
+		
+		for(Order o : incomingOrders) {
+		this.addOrder(
+				o.getoNum().getOrderNumber(), //Gets Order Number
+				o.getoLoc().getOrderLocation().getSource(), // gets order details
+				o.getoLoc().getOrderLocation().getDestination(),
+				o.getoLoc().getOrderLocation().getWeight());
+		}
+		
+	}
+	/*
 	public static void sortSequence(Vector<Order> sequenceIn){
 		Collections.sort(sequenceIn, sequenceIn.);
 		
