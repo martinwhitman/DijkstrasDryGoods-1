@@ -93,8 +93,8 @@ public class ServiceSideInterface {
 			System.out.println("*  Select an item:");
 			System.out.println("*  <Manager Only>");
 			System.out.println("*     Inventory Functions:");
-			System.out.println("*  5 -- Add an item to Available Products");
-			System.out.println("*  6 -- Delete an item from Available Products");
+			//System.out.println("*  5 -- Add an item to Available Products");
+			//System.out.println("*  6 -- Delete an item from Available Products");
 			System.out.println("*     Sales Functions:");
 			System.out.println("*  7 -- View Sales by Product");
 			System.out.println("*  8 -- View Overall Sales Figures");
@@ -105,6 +105,7 @@ public class ServiceSideInterface {
 			System.out.println("*  1 -- View a customer order by Order Number");
 			System.out.println("*  2 -- Edit an item's inventory level");
 			System.out.println("*  3 -- View the current inventory");
+			System.out.println("*  10 - View pending/in transit shipments");
 			System.out.println("*  4 -- Exit");
 			System.out.print("*  Your selection: ");
 			int selection = in.nextInt();
