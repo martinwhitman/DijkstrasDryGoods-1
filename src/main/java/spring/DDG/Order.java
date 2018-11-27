@@ -12,9 +12,9 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int orderNumber;
-	private int mb;
-	private int processor;
-	private int ssd;
+	private int mb;//motherboards
+	private int processor;//processors
+	private int ssd;//solid-state drives
 	private int BRB;
 	private int cac;
 	private int sdram;
@@ -26,23 +26,26 @@ public class Order {
 	private int hc;
 	private String street;
 	private String city;
+	private String zip;
+	private Shipping shipType;
+	private String state;
+	
+	
+	
 	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {
 		this.city = city;
 	}
-	private String state;
+	
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
 	}
-	private String zip;
-	private Shipping shipType;
-	
-	
+		
 	public String getStreet() {
 		return street;
 	}

@@ -9,11 +9,20 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Dijkstra's Dry Goods REsult page</title>
+<title>Dijkstra's Dry Goods Result page</title>
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <style>
-        *{
+    	table.center {
+            margin-left:auto;
+            margin-right:auto;
+        	}
+        *{	
+        	
             font-family: 'Quicksand', sans-serif;
+            text-align:center;
+            font-weight:900;
+			text-shadow: 0px 0px 3px #000;
+			text-shadow: 0px 0px 3px #000, -1px -1px #000, 1px 1px #000;
         }
         .hero-image {
             background-image: url("images/pcb.jpg");
@@ -194,7 +203,7 @@
         <h1 style="font-size:50px">DIJKSTRA'S DRY GOODS</h1>
         <h3>ITEMS SUMMARY</h3>
         
-        <table>
+        <table class="center">
         <tr>
         <td>Motherboards</td>
         <td>${o.mb}</td>
@@ -249,7 +258,7 @@
         </p>
         <p></p>
         <h3>Shipping Summary</h3>
-        <table>
+        <table class="center">
         <tr>
         <td>Street Address</td>
         <td>${o.street}</td>

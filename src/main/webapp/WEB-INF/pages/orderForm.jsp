@@ -12,8 +12,15 @@
 <title>Dijkstra's Dry Goods Ordering Page</title>
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <style>
+    	#visible{
+    		color:white;
+    		font-weight:900;
+			text-shadow: 0px 0px 3px #000;
+			text-shadow: 0px 0px 3px #000, -1px -1px #000, 1px 1px #000;
+    	}
         *{
             font-family: 'Quicksand', sans-serif;
+            
         }
         .hero-image {
             background-image: url("images/pcb.jpg");
@@ -193,7 +200,7 @@
     <div class="hero-text">
         <h1 style="font-size:50px">DIJKSTRA'S DRY GOODS</h1>
         <h3>PREMIER SHIPPING AND LOGISTICS</h3>
-        <mvc:form modelAttribute="order" action = "result.mvc">
+        <mvc:form modelAttribute="order" action = "result.mvc" id="visible">
             
                 <h2>Order Selection</h2>
 
