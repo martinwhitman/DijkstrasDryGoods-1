@@ -9,6 +9,11 @@
   <url>http://maven.apache.org</url>
   <dependencies>
   <!-- https://mvnrepository.com/artifact/org.javatuples/javatuples -->
+  	<dependency>
+    	<groupId>org.json</groupId>
+    	<artifactId>json</artifactId>
+    	<version>20150729</version>
+	</dependency>
 	<dependency>
     	<groupId>org.javatuples</groupId>
     	<artifactId>javatuples</artifactId>

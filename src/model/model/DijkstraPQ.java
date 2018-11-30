@@ -1,10 +1,12 @@
 package model;
 import javafx.util.Pair;
+import model.DijkstraPQ.Order;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -189,10 +191,12 @@ public class DijkstraPQ {
 		public void setDistance(int distance) {
 			this.distance = distance;
 		}
+
 		@Override
 		public String toString() {
 			return "Order Number: "+ this.getoNum()+" Location: "+this.getoLoc().getOrderLocation().toString()+" ";
 		}
+
     	
     	
     }
@@ -289,7 +293,8 @@ public class DijkstraPQ {
             //override the comparator to do the sorting based keys
            // PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(vertices, new Comparator<Pair<Integer, Integer>>() {
             PriorityQueue<Triplet<Integer, Integer, String>> pq = new PriorityQueue<Triplet<Integer, Integer, String>>(vertices, new Comparator<Triplet<Integer, Integer,String>>() {   
-            public int compare(Triplet<Integer, Integer, String> p1, Triplet<Integer, Integer,String> p2) {
+            @Override
+            	public int compare(Triplet<Integer, Integer, String> p1, Triplet<Integer, Integer,String> p2) {
                     //sort using distance values
                     int key1 = p1.getValue0();
                     int key2 = p2.getValue0();
