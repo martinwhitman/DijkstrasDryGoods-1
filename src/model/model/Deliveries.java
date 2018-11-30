@@ -19,13 +19,19 @@ import java.time.LocalDate;
 import model.DijkstraPQ.Edge;
 import model.DijkstraPQ.Graph;
 import model.DijkstraPQ.Order;
+import model.DijkstraPQ.OrderLocation;
+import model.DijkstraPQ.OrderNumber;
 //update
 public class Deliveries extends Graph{
-	
-	
+    LocalDate shipdate;
+    FileWriter file;
+    
+    JSONObject JSONPersist;
+	Orders orders;
 
 	
 	public class Orders implements Iterable <Order>{
+
 		Vector<Order> orderList;
 		
 		Orders(){
@@ -40,6 +46,19 @@ public class Deliveries extends Graph{
 			orderList.addElement(incomingOrder);
 			System.out.println("Order Added.");
 		}
+    	public void addOrder(String num,
+    			Integer source,
+    			Integer destination,
+    			Integer weight
+    			){	
+    		Order newOrder =null;
+    		OrderNumber newNum = new OrderNumber( num);
+    		OrderLocation newLoc = new OrderLocation(source,destination,weight);
+    		newOrder = new Order (newNum, newLoc);
+			orderList.addElement(newOrder);
+			System.out.println("Order Added.");
+    		
+    	}
 
 	
 	}
@@ -52,8 +71,8 @@ public class Deliveries extends Graph{
 		//Locations determines how many stops there are to make
 		super(locations);
 		//Int represents order placement, ergo priority
-		
-		
+		 this.orders= new Orders();
+		 this.JSONPersist = new JSONObject();
 		/*
 		 *     static class Edge {
         int source;
@@ -86,6 +105,124 @@ public class Deliveries extends Graph{
 		}
 		
 	}
+	/* Create JSON Delivery Manifest
+	 * 
+	 * */
+	/*public void makeManifest(Orders orderVector) {
+        LocalDate shipdate = LocalDate.now();
+        //FileWriter file=null;
+        
+        try{this.file = new FileWriter("Deliveries "+shipdate+".txt");
+        		
+        	this.JSONPersist.put(" "+shipdate+" Route",0);
+        }catch(IOException e) {
+        	e.printStackTrace();
+        }
+		for(Order o: orderVector) {
+			this.JSONPersist.put(o.oNum.getOrderNumber(), o.getDistance());
+		try{
+			this.file.write(this.JSONPersist.toString());
+			
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + this.JSONPersist.toString());
+		} catch(IOException e){
+			e.printStackTrace();
+		}finally {
+			/*
+			try{file.flush();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			try{file.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			if (file!=null) {
+				try {
+					file.flush();
+					file.close();
+				}catch (IOException e) {
+					//report exception
+				}
+			}
+		}
+		}
+        }*/
+	//End make manifest
+	// makeManifest()
+	public void makeManifest() {
+        LocalDate shipdate = LocalDate.now();
+        //FileWriter file=null;
+        
+        
+        
+        /* Code for writing to JSON file begins here*/
+        /* Current JSON file idea:
+         * All delivery files are of the format:
+         * Deliveries YYYY-MM-DD.txt //ex: "Deliveries 2018-11-30.txt"
+         * Using shipdate to get date for delivery manifest name.
+         * 
+         * */
+        
+        
+        try{file = new FileWriter("Deliveries "+shipdate+".txt");
+        		
+        	JSONPersist.put(" "+shipdate+" Route",0);
+        	//vector.forEach((n) -> print(n))
+        	//this.orders.forEach((o)->System.out.println(o.getoNum().getOrderNumber().toString()));
+        	orderSequence.forEach((o)->JSONPersist.put(" "+o.getoNum().getOrderNumber()+" ", o.getDistance()));
+			//JSONPersist.put(this.orderSequence. //.getoNum().getOrderNumber(), o.getDistance());
+        	//for(int i=0; i<orders.orderList.size();i++) {
+			//	JSONPersist.put()
+			//}
+        	file.write(JSONPersist.toString());
+			file.flush();
+			file.close();
+        	//for(Order o: this.orders) {
+    		//	this.JSONPersist.put(o.oNum.getOrderNumber(), o.getDistance());
+    		//}
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + JSONPersist.toString());
+        }catch(IOException e) {
+        	e.printStackTrace();
+        }//End Make Manifest
+
+		/*try{
+			//this.file.write(this.JSONPersist.toString());
+			//this.file.flush();
+			//this.file.close();
+			
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + this.JSONPersist.toString());
+		} catch(IOException e){
+			e.printStackTrace();
+		}finally {
+			/*
+			try{file.flush();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			try{file.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			if (file!=null) {
+				try {
+					this.file.flush();
+					this.file.close();
+				}catch (IOException e) {
+					//report exception
+				}
+			}
+		} */
+		}
+        //End make manifest
+
+	
+		
 	/*
 	public static void sortSequence(Vector<Order> sequenceIn){
 		Collections.sort(sequenceIn, sequenceIn.);
@@ -139,6 +276,7 @@ public class Deliveries extends Graph{
 	
 	
 	
+	@SuppressWarnings("null")
 	public static void main(String [] args) throws JSONException {
         int vertices,counter = 0;
         int source,destination,weight;
@@ -150,11 +288,11 @@ public class Deliveries extends Graph{
         Deliveries graph = new Deliveries(vertices);
         
         /* Code for JSON debugging begins here*/
-		JSONObject obj = new JSONObject();
-		obj.put(" "+shipdate+" Route",0);
-		obj.put("One", 1);
-		obj.put("Two", 2);
-		obj.put("Three", 3);
+		//JSONObject obj = new JSONObject();
+		//obj.put(" "+shipdate+" Route",0);
+		//obj.put("One", 1);
+		//obj.put("Two", 2);
+		//obj.put("Three", 3);
 		//JSONArray deliveries = new JSONArray();
 		//deliveries.put("Compnay: eBay");
 		//deliveries.put("Compnay: Paypal");
@@ -226,7 +364,41 @@ public class Deliveries extends Graph{
         graph2.addOrder("three",0, 2, 1);
         graph2.addOrder("four",0, 3, 2);
         graph2.find_Route(source_vertex);
-
+        Deliveries graph3 = new Deliveries(vertices);
+        
+        /* Only use full initialization for now
+         * Passing orders as Order objects into the Graph's orders vector 
+         * is not finding distance
+         * 
+         * */
+        //Order o1,o2,o3,o4,o5,o6,o7 = null;
+        //o1 = new Order("five",0, 3, 4);
+       // o2 = new Order("six",0, 4, 2);
+       // o3 = new Order("seven",0, 5, 6);
+       // o4 = new Order("one",0, 1, 4);
+       // o5 = new Order("two",0, 2, 3);
+       // o6 = new Order("three",0, 2, 1);
+       // o7 = new Order("four",0, 3, 2);
+       // graph3.addOrder(o1 );
+       // graph3.addOrder(o2);
+       // graph3.addOrder(o3 );
+       // graph3.addOrder(o4 );
+       // graph3.addOrder(o5 );
+       // graph3.addOrder(o6);
+        //graph3.addOrder(o7 );
+        /* 
+         * makeManifest()
+         * Inits a JSON object and creates a text file for use with the site.
+         * */
+        graph3.addOrder("five",0, 3, 4);
+        graph3.addOrder("six",0, 4, 2);
+        graph3.addOrder("seven",0, 5, 6);
+        graph3.addOrder("one",0, 1, 4);
+        graph3.addOrder("two",0, 2, 3);
+        graph3.addOrder("three",0, 2, 1);
+        graph3.addOrder("four",0, 3, 2);
+        graph3.find_Route(source_vertex);
+        graph3.makeManifest();
         /*
         graph.addEdge(0, 1, 4);
         graph.addEdge(0, 2, 3);
@@ -238,22 +410,28 @@ public class Deliveries extends Graph{
         graph.find_Route(0);
 		*/
         
-        /* Code for writing to JSON file begins here*/
+        /* 
+         * Old debug code for writing to JSON file
+         * 
+         * Code for writing to JSON file begins here*/
         /* Current JSON file idea:
          * All delivery files are of the format:
          * Deliveries YYYY-MM-DD.txt //ex: "Deliveries 2018-11-30.txt"
          * Using shipdate to get date for delivery manifest name.
          * 
          * */
+       
+        /*
 		try{file = new FileWriter("Deliveries "+shipdate+".txt");
 		file.write(obj.toString());
 		file.flush();
+		System.out.println("------------------------------------------");
 		System.out.println("Successfully Copied JSON Object to File...");
 		System.out.println("\nJSON Object: " + obj);
 	} catch(IOException e){
 		e.printStackTrace();
 	}finally {
-		/*
+		
 		try{file.flush();
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -261,7 +439,7 @@ public class Deliveries extends Graph{
 		try{file.close();
 		}catch(IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 		if (file!=null) {
 			try {
 				file.close();
@@ -270,6 +448,6 @@ public class Deliveries extends Graph{
 			}
 		}
 	}
-	}
+	}*/
 
-}
+}}

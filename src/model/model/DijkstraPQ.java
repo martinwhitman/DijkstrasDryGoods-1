@@ -104,7 +104,10 @@ public class DijkstraPQ {
     	 * */
     	Edge location;
     	
-    	
+    	public OrderLocation(Integer source,Integer destination, Integer weight) {
+    		Edge edge = new Edge(source,destination,weight);
+    		this.location = edge;
+    	}
     	public OrderLocation(Edge loc) {
     		this.setOrderLocation(loc);
     	}
@@ -145,7 +148,7 @@ public class DijkstraPQ {
     	
     }
     //<OrderNumber,OrderLocation>
-    static class Order implements Comparable<Order>{
+    static class Order implements Comparable<Order>, Iterable <Order>{
     	OrderNumber oNum;
     	OrderLocation oLoc;
     	Integer distance; //position in delivery
@@ -158,6 +161,21 @@ public class DijkstraPQ {
     		
     		return output;
     	}*/
+    	public Order(String num,
+    			Integer source,
+    			Integer destination,
+    			Integer weight
+    			){	
+    		OrderNumber newNum = new OrderNumber( num);
+    		OrderLocation newLoc = new OrderLocation(source,destination,weight);
+    		this.setoNum(newNum);
+    		this.setoLoc(newLoc);
+    		
+    		
+    	}
+	    public Iterator<Order> iterator() {
+	        return this.iterator();
+	    }
     	
     	public Order(OrderNumber num,OrderLocation loc) {
     		this.setoNum(num);
@@ -248,6 +266,10 @@ public class DijkstraPQ {
         //addEdge(source,destination,weight);
         addEdge(order);
         }
+		public void addOrder(Order incomingOrder) {
+			orders.addElement(incomingOrder);
+			System.out.println("Order Added.");
+		}
 
         //public void addEdge(int source, int destination, int weight) {
         /**public void addEdge(Edge edge) {
