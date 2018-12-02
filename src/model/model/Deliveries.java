@@ -28,6 +28,8 @@ public class Deliveries extends Graph{
     
     JSONObject JSONPersist;
 	Orders orders;
+	Times times;
+	//Vector<DelTime> times;
 
 	
 	public class Orders implements Iterable <Order>{
@@ -63,6 +65,74 @@ public class Deliveries extends Graph{
 	
 	}
 	
+	public class DelTime{
+		Integer hour;
+		String TrackingNumber;
+		
+		DelTime(){
+			setHour(700);
+			setTrackingNumber("Empty");
+			
+		}
+		DelTime(Integer hourOf, String trackNum){
+			setHour(hourOf);
+			setTrackingNumber(trackNum);
+		}
+
+		public Integer getHour() {
+			return hour;
+		}
+
+		public void setHour(Integer hour) {
+			this.hour = hour;
+		}
+
+		public String getTrackingNumber() {
+			return TrackingNumber;
+		}
+
+		public void setTrackingNumber(String trackingNumber) {
+			TrackingNumber = trackingNumber;
+		}
+		@Override
+		public String toString() {
+			return "DelTime [hour=" + hour + ", TrackingNumber=" + TrackingNumber + "]";
+		}
+		
+		
+		
+	}
+	public class Times{
+		Vector <DelTime> timeList;
+		
+		Times(){
+			timeList = new Vector<DelTime>();
+			
+		}
+    	public Vector<DelTime> getTimeList() {
+			return timeList;
+		}
+
+
+		public void setTimeList(Vector<DelTime> timeList) {
+			this.timeList = timeList;
+		}
+
+
+		public void addTime(Integer minutes,String num){	
+    		DelTime newTime = null;
+    	
+    		
+    		newTime = new DelTime(minToHour(minutes),num);
+    		this.timeList.addElement(newTime);
+
+			System.out.println("Time Added.");
+    		
+    	}
+    	
+	}
+
+	
 	
 	
 	//Vertices here are known as Locations
@@ -73,6 +143,7 @@ public class Deliveries extends Graph{
 		//Int represents order placement, ergo priority
 		 this.orders= new Orders();
 		 this.JSONPersist = new JSONObject();
+		 this.times= new Times();
 		/*
 		 *     static class Edge {
         int source;
@@ -95,6 +166,9 @@ public class Deliveries extends Graph{
 	*/
 	Deliveries(int locations, Orders incomingOrders){
 		super(locations);
+		 this.orders= new Orders();
+		 this.JSONPersist = new JSONObject();
+		 this.times= new Times();
 		
 		for(Order o : incomingOrders) {
 		this.addOrder(
@@ -105,121 +179,7 @@ public class Deliveries extends Graph{
 		}
 		
 	}
-	/* Create JSON Delivery Manifest
-	 * 
-	 * */
-	/*public void makeManifest(Orders orderVector) {
-        LocalDate shipdate = LocalDate.now();
-        //FileWriter file=null;
-        
-        try{this.file = new FileWriter("Deliveries "+shipdate+".txt");
-        		
-        	this.JSONPersist.put(" "+shipdate+" Route",0);
-        }catch(IOException e) {
-        	e.printStackTrace();
-        }
-		for(Order o: orderVector) {
-			this.JSONPersist.put(o.oNum.getOrderNumber(), o.getDistance());
-		try{
-			this.file.write(this.JSONPersist.toString());
-			
-			System.out.println("------------------------------------------");
 
-			System.out.println("\nJSON Object: " + this.JSONPersist.toString());
-		} catch(IOException e){
-			e.printStackTrace();
-		}finally {
-			/*
-			try{file.flush();
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			try{file.close();
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			if (file!=null) {
-				try {
-					file.flush();
-					file.close();
-				}catch (IOException e) {
-					//report exception
-				}
-			}
-		}
-		}
-        }*/
-	//End make manifest
-	// makeManifest()
-	public void makeManifest() {
-        LocalDate shipdate = LocalDate.now();
-        //FileWriter file=null;
-        
-        
-        
-        /* Code for writing to JSON file begins here*/
-        /* Current JSON file idea:
-         * All delivery files are of the format:
-         * Deliveries YYYY-MM-DD.txt //ex: "Deliveries 2018-11-30.txt"
-         * Using shipdate to get date for delivery manifest name.
-         * 
-         * */
-        
-        
-        try{file = new FileWriter("Deliveries "+shipdate+".txt");
-        		
-        	JSONPersist.put(" "+shipdate+" Route",0);
-        	//vector.forEach((n) -> print(n))
-        	//this.orders.forEach((o)->System.out.println(o.getoNum().getOrderNumber().toString()));
-        	orderSequence.forEach((o)->JSONPersist.put(" "+o.getoNum().getOrderNumber()+" ", o.getDistance()));
-			//JSONPersist.put(this.orderSequence. //.getoNum().getOrderNumber(), o.getDistance());
-        	//for(int i=0; i<orders.orderList.size();i++) {
-			//	JSONPersist.put()
-			//}
-        	file.write(JSONPersist.toString());
-			file.flush();
-			file.close();
-        	//for(Order o: this.orders) {
-    		//	this.JSONPersist.put(o.oNum.getOrderNumber(), o.getDistance());
-    		//}
-			System.out.println("------------------------------------------");
-
-			System.out.println("\nJSON Object: " + JSONPersist.toString());
-        }catch(IOException e) {
-        	e.printStackTrace();
-        }//End Make Manifest
-
-		/*try{
-			//this.file.write(this.JSONPersist.toString());
-			//this.file.flush();
-			//this.file.close();
-			
-			System.out.println("------------------------------------------");
-
-			System.out.println("\nJSON Object: " + this.JSONPersist.toString());
-		} catch(IOException e){
-			e.printStackTrace();
-		}finally {
-			/*
-			try{file.flush();
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			try{file.close();
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			if (file!=null) {
-				try {
-					this.file.flush();
-					this.file.close();
-				}catch (IOException e) {
-					//report exception
-				}
-			}
-		} */
-		}
-        //End make manifest
 
 	
 		
@@ -272,7 +232,202 @@ public class Deliveries extends Graph{
 	}
 	/* End of JSON retrieval methods
 	 * Current purpose is debug only*/
+	
+	/* Time class creation method, debug only at this point
+	 * */
+	public DelTime makeTime(Integer minutes, String number) {
+		
+		DelTime maybeBadIdea = new DelTime(minutes,number);
+		return maybeBadIdea;
+	}
+	
+	/*
+	 * Set times vector for time table generation from orderSequence
+	 * 
+	 * 
+	 * */
+	
+	
+	
 
+	/*	Random Time table generator
+	 * 	Normalizes order to hours based on 
+	 * 	Data from random sources on the internet.
+	 * 	surprisingly, no hard average available.
+	 * 	Using average from Stephen Meyer's article"
+	 * 	https://www.citylab.com/life/2018/07/man-of-letters/565979/
+	 * 	Shifts: 8-10 hrs/day, 12 during holidays
+	 * 	50 to 60 packages/day, averaging to 55.
+	 * 	Math:
+	 * 	55/8 hours, 6.875, so 7 packages per hour
+	 * 	60/6.875 ~ 8.73
+	 * 	Let's say 9 minutes per package
+	 * 	This is *postal* routes though,
+	 * 	I think we should add some "travel time"
+	 * 	due to variability of shipping routes. 
+	 * 	five additional minutes per parcel sounds reasonable;
+	 * 	We can ball park and say about 14 minutes per package
+	 * 
+	 * */
+	public Integer minToHour(Integer minutes) {
+		/*
+		 * reference:
+		 * https://stackoverflow.com/questions/47752102/force-integer-division-on-a-double
+		 * 
+		 * */
+		final int HOUR = 60;
+		Integer hours, mins,hundredHours =0;
+		/*
+		 * x = (long)(x / y); will get integer part of the operation
+		 * 220/60 = 3 //integer division, regular division would give 3.666-
+		 * 
+		 * */
+		hours = (Integer)(minutes/HOUR);
+		/* Should return minute portion that is not hour
+		 * 220%60 = 40
+		 * */
+		mins = (minutes/HOUR);
+		hundredHours = hours+mins;	
+		return hundredHours;
+	}
+	public void timeTable() {
+		final Integer AVERAGE = 14;
+		Vector<DelTime> holding = null;
+		DelTime holder=null;
+		/**
+		orderSequence.forEach((o)->this.times.addTime(
+				minToHour(o.getDistance()*AVERAGE),o.getoNum().getOrderNumber()));
+		**/
+		for(int i =0;i<this.orderSequence.size();i++) {
+
+			System.out.println("Order: "+i+ orderSequence.get(i).getDistance());
+			System.out.println("Order minutes: "+i+ (orderSequence.get(i).getDistance()*AVERAGE));
+			this.times.addTime(minToHour(orderSequence.get(i).getDistance()*AVERAGE),
+					orderSequence.get(i).getoNum().getOrderNumber());
+			//System.out.println("Time Created ");
+		}
+	}	
+		
+	/* Create JSON Delivery Manifest
+	 * 
+	 * */
+	/*public void makeManifest(Orders orderVector) {
+        LocalDate shipdate = LocalDate.now();
+        //FileWriter file=null;
+        
+        try{this.file = new FileWriter("Deliveries "+shipdate+".txt");
+        		
+        	this.JSONPersist.put(" "+shipdate+" Route",0);
+        }catch(IOException e) {
+        	e.printStackTrace();
+        }
+		for(Order o: orderVector) {
+			this.JSONPersist.put(o.oNum.getOrderNumber(), o.getDistance());
+		try{
+			this.file.write(this.JSONPersist.toString());
+			
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + this.JSONPersist.toString());
+		} catch(IOException e){
+			e.printStackTrace();
+		}finally {
+			/*
+			try{file.flush();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			try{file.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			if (file!=null) {
+				try {
+					file.flush();
+					file.close();
+				}catch (IOException e) {
+					//report exception
+				}
+			}
+		}
+		}
+        }*/
+	//End make manifest
+	// makeManifest()
+	public void makeManifest() {
+        LocalDate shipdate = LocalDate.now();
+        //Establishes time table
+        this.timeTable();
+        //FileWriter file=null;
+        
+        
+        
+        /* Code for writing to JSON file begins here*/
+        /* Current JSON file idea:
+         * All delivery files are of the format:
+         * Deliveries YYYY-MM-DD.txt //ex: "Deliveries 2018-11-30.txt"
+         * Using shipdate to get date for delivery manifest name.
+         * 
+         * */
+        
+        
+        try{file = new FileWriter("Deliveries "+shipdate+".txt");
+        		
+        	JSONPersist.put(" "+shipdate+" Route",0);
+        	//vector.forEach((n) -> print(n))
+        	//this.orders.forEach((o)->System.out.println(o.getoNum().getOrderNumber().toString()));
+        	orderSequence.forEach((o)->JSONPersist.put(" "+o.getoNum().getOrderNumber()+" ", o.getDistance()));
+			//JSONPersist.put(this.orderSequence. //.getoNum().getOrderNumber(), o.getDistance());
+        	//for(int i=0; i<orders.orderList.size();i++) {
+			//	JSONPersist.put()
+			//}
+        	file.write(JSONPersist.toString());
+			file.flush();
+			file.close();
+        	//for(Order o: this.orders) {
+    		//	this.JSONPersist.put(o.oNum.getOrderNumber(), o.getDistance());
+    		//}
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + JSONPersist.toString());
+			System.out.println(" Print time table: ");
+			this.times.timeList.forEach((t)->System.out.println(t.toString()));
+        }catch(IOException e) {
+        	e.printStackTrace();
+        }//End Make Manifest
+
+		/*try{
+			//this.file.write(this.JSONPersist.toString());
+			//this.file.flush();
+			//this.file.close();
+			
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + this.JSONPersist.toString());
+		} catch(IOException e){
+			e.printStackTrace();
+		}finally {
+			/*
+			try{file.flush();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			try{file.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			if (file!=null) {
+				try {
+					this.file.flush();
+					this.file.close();
+				}catch (IOException e) {
+					//report exception
+				}
+			}
+		} */
+		}
+        //End make manifest
+	
 	
 	
 	
