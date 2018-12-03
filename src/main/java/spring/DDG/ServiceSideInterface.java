@@ -3,10 +3,16 @@ package spring.DDG;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class ServiceSideInterface {
 
 	static Scanner in = new Scanner(System.in);
 	static OrderDao od = new OrderDao();
+	
+	public static void main(String[] args) {
+		
+		runMenu();
+	}
 	
 	//generate the details of a specified customer's order using the order number
 	//works in conjunction with ViewOrder from OrderDao and ReturnOrderDetails from
@@ -85,6 +91,8 @@ public class ServiceSideInterface {
 		
 		//current state, also static, placeholder
 	}
+	
+	
 	
 	public static void runMenu() {
 		boolean goAgain = true;
