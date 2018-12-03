@@ -8,10 +8,10 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 public class OrderDao {
-	//shouldn't this EntityManagerFactory be static?
+	
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("DijkstrasDryGoods");
 
-	//adding cleanUp method for when the console based service side program is closed
+	//cleanUp method for when the console based service side program is closed
 	public void cleanUp() {
 		emfactory.close();
 	}
@@ -21,6 +21,7 @@ public class OrderDao {
 		em.getTransaction().begin();
 		em.persist(orderToAdd);
 		em.getTransaction().commit();
+		em.close();
 	}
 	
 	//adding service side option to view customer's order by order number
@@ -51,5 +52,7 @@ public class OrderDao {
 	}*/
 	
 	//adding service side option to edit an item's inventory
+	
+	
 	
 }

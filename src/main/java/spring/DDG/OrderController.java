@@ -46,6 +46,14 @@ public class OrderController {
 		modelAndView.addObject("t", trackingNumber);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/serviceSide")
+	public ModelAndView serviceSide() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("serviceEntry");
+		
+		return modelAndView;
+	}
 	@Bean
 	public OrderDao dao() {
 		OrderDao bean = new OrderDao();
