@@ -118,7 +118,21 @@ public class Deliveries extends Graph{
 			this.timeList = timeList;
 		}
 
+		public void addTime(Integer minutes,String num){	
+    		DelTime newTime = null;
+    	
+    		
+    		newTime = new DelTime(minutes,num);
+    		this.timeList.addElement(newTime);
 
+			System.out.println("Time Added.");
+    		
+    	}
+		
+		/* Uses minToHour() at launch
+		 * 
+		 * */
+/*
 		public void addTime(Integer minutes,String num){	
     		DelTime newTime = null;
     	
@@ -128,7 +142,7 @@ public class Deliveries extends Graph{
 
 			System.out.println("Time Added.");
     		
-    	}
+    	} */
     	
 	}
 
@@ -275,34 +289,47 @@ public class Deliveries extends Graph{
 		 * https://stackoverflow.com/questions/47752102/force-integer-division-on-a-double
 		 * 
 		 * */
+		final int DISPATCH = 700;
 		final int HOUR = 60;
-		Integer hours, mins,hundredHours =0;
+		final int HUNDRED = 100;
+		Integer hours = null;
+		Integer mins= null;
+		Integer hundredHours =null;
 		/*
 		 * x = (long)(x / y); will get integer part of the operation
 		 * 220/60 = 3 //integer division, regular division would give 3.666-
 		 * 
 		 * */
-		hours = (Integer)(minutes/HOUR);
+		System.out.println(" minToHour, minutes in: "+ minutes);
+		hours = ((Integer)(minutes/HOUR));
+		hours*= HUNDRED;
+		hours+= DISPATCH;
+		System.out.println(" minToHour, hours: "+ hours);
 		/* Should return minute portion that is not hour
 		 * 220%60 = 40
 		 * */
-		mins = (minutes/HOUR);
+		mins = (minutes%HOUR);
+		System.out.println(" minToHour, mins: "+ mins);
 		hundredHours = hours+mins;	
+		System.out.println(" minToHour, hundred hours: "+ hundredHours);
 		return hundredHours;
 	}
 	public void timeTable() {
 		final Integer AVERAGE = 14;
 		Vector<DelTime> holding = null;
 		DelTime holder=null;
+		Integer timeTemp = null;
 		/**
-		orderSequence.forEach((o)->this.times.addTime(
+		orderSequence.forEach((o)->this.times.addTime(s
 				minToHour(o.getDistance()*AVERAGE),o.getoNum().getOrderNumber()));
 		**/
 		for(int i =0;i<this.orderSequence.size();i++) {
-
-			System.out.println("Order: "+i+ orderSequence.get(i).getDistance());
-			System.out.println("Order minutes: "+i+ (orderSequence.get(i).getDistance()*AVERAGE));
-			this.times.addTime(minToHour(orderSequence.get(i).getDistance()*AVERAGE),
+			timeTemp = (minToHour((orderSequence.get(i).getDistance()*AVERAGE)));
+			System.out.println("Time temp: "+timeTemp);
+			System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
+			System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
+			System.out.println("Order minutes: "+i+" "+ (orderSequence.get(i).getDistance()*AVERAGE));
+			this.times.addTime(timeTemp,
 					orderSequence.get(i).getoNum().getOrderNumber());
 			//System.out.println("Time Created ");
 		}
