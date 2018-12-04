@@ -13,13 +13,10 @@
 <body>
 <h1>Tracking Result</h1>
 <table>
-<tr>
-<td>Delivery Time</td>
 
-<td>${t.scheduledDelivery}</td>
-</tr>
 <tr><td>Tracking Number</td><td>${t.trackingNumber}</td></tr>
 <tr><td>Delivery Order</td><td>${t.deliveryOrder}</td></tr>
+<tr><td>Delivery Time</td><td>${t.scheduledDelivery}</td></tr>
 </table>
 </body>
 </html>
