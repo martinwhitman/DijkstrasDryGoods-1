@@ -27,12 +27,19 @@ public class Deliveries extends Graph{
     FileWriter file;
     
     JSONObject JSONPersist;
+    JSONArray deliveryList;
 	Orders orders;
 	Times times;
 	//Vector<DelTime> times;
 
 	
 	public class Orders implements Iterable <Order>{
+		/*
+		 * Class Orders, offers helper methods
+		 * for building and maintaining a vector
+		 * of objects of class Order (DijkstraPQ.java)
+		 * 
+		 * */
 
 		Vector<Order> orderList;
 		
@@ -66,6 +73,12 @@ public class Deliveries extends Graph{
 	}
 	
 	public class DelTime{
+		/*
+		 * Delivery Time class, DelTime
+		 * Composed of hour and tracking number
+		 * 
+		 * 
+		 * */
 		Integer hour;
 		String TrackingNumber;
 		
@@ -150,13 +163,18 @@ public class Deliveries extends Graph{
 	
 	
 	//Vertices here are known as Locations
-	
+	/*
+	 * Constructors for objects of class Deliveries
+	 * 
+	 * 
+	 * */
 	Deliveries(int locations) {
 		//Locations determines how many stops there are to make
 		super(locations);
 		//Int represents order placement, ergo priority
 		 this.orders= new Orders();
 		 this.JSONPersist = new JSONObject();
+		 this.deliveryList = new JSONArray();
 		 this.times= new Times();
 		/*
 		 *     static class Edge {
@@ -182,6 +200,7 @@ public class Deliveries extends Graph{
 		super(locations);
 		 this.orders= new Orders();
 		 this.JSONPersist = new JSONObject();
+		 this.deliveryList = new JSONArray();
 		 this.times= new Times();
 		
 		for(Order o : incomingOrders) {
@@ -289,9 +308,9 @@ public class Deliveries extends Graph{
 		 * https://stackoverflow.com/questions/47752102/force-integer-division-on-a-double
 		 * 
 		 * */
-		final int DISPATCH = 700;
-		final int HOUR = 60;
-		final int HUNDRED = 100;
+		final int DISPATCH = 700; //Start of day
+		final int HOUR = 60; // Minutes in an hour for conversion
+		final int HUNDRED = 100; // Converts the integer of hour(s)to a 2400 hour format
 		Integer hours = null;
 		Integer mins= null;
 		Integer hundredHours =null;
@@ -304,16 +323,23 @@ public class Deliveries extends Graph{
 		hours = ((Integer)(minutes/HOUR));
 		hours*= HUNDRED;
 		hours+= DISPATCH;
-		System.out.println(" minToHour, hours: "+ hours);
+		//System.out.println(" minToHour, hours: "+ hours);
 		/* Should return minute portion that is not hour
 		 * 220%60 = 40
 		 * */
 		mins = (minutes%HOUR);
-		System.out.println(" minToHour, mins: "+ mins);
+		//System.out.println(" minToHour, mins: "+ mins);
 		hundredHours = hours+mins;	
 		System.out.println(" minToHour, hundred hours: "+ hundredHours);
 		return hundredHours;
 	}
+	
+	/*
+	 * timeTable()
+	 * builds time table based on data from 
+	 * this.orderSequences 's vectors
+	 * 
+	 * */
 	public void timeTable() {
 		final Integer AVERAGE = 14;
 		Vector<DelTime> holding = null;
@@ -325,10 +351,10 @@ public class Deliveries extends Graph{
 		**/
 		for(int i =0;i<this.orderSequence.size();i++) {
 			timeTemp = (minToHour((orderSequence.get(i).getDistance()*AVERAGE)));
-			System.out.println("Time temp: "+timeTemp);
-			System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
-			System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
-			System.out.println("Order minutes: "+i+" "+ (orderSequence.get(i).getDistance()*AVERAGE));
+			//System.out.println("Time temp: "+timeTemp);
+			//System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
+			//System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
+			//System.out.println("Order minutes: "+i+" "+ (orderSequence.get(i).getDistance()*AVERAGE));
 			this.times.addTime(timeTemp,
 					orderSequence.get(i).getoNum().getOrderNumber());
 			//System.out.println("Time Created ");
@@ -381,7 +407,114 @@ public class Deliveries extends Graph{
         }*/
 	//End make manifest
 	// makeManifest()
+	/* Current makeManifest() method
+	 * Updated as per Martin's suggestion 
+	 * re: outputting a simulated time
+	 * This is the current functioning
+	 * Time table output and writing to JSON file method
+	 * Outputs JSON as follows: 
+	 * ex:
+	 * {"2018-12-04":["three-714","four-728","six-728","one-756","seven-824"]}
+	 * LocalDate shipdate being key with the route List (trackingNumber,time) as value
+	 * 
+	 * 
+	 * */
 	public void makeManifest() {
+        LocalDate shipdate = LocalDate.now();
+        //Establishes time table
+        this.timeTable();
+        //FileWriter file=null;
+        
+        
+        
+        /* Code for writing to JSON file begins here*/
+        /* Current JSON file idea:
+         * All delivery files are of the format:
+         * Deliveries YYYY-MM-DD.txt //ex: "Deliveries 2018-11-30.txt"
+         * Using shipdate to get date for delivery manifest name.
+         * 
+         * */
+        
+        
+        try{file = new FileWriter("Deliveries "+shipdate+".txt");
+        		
+        	//JSONPersist.put(" "+shipdate+" Route",0);
+        	//vector.forEach((n) -> print(n))
+        	//this.orders.forEach((o)->System.out.println(o.getoNum().getOrderNumber().toString()));
+        	//orderSequence.forEach((o)->JSONPersist.put(" "+o.getoNum().getOrderNumber()+" ", o.getDistance()));
+        	
+        	/*
+        	 * Builds a JSONArray from the this.times.timeList vector
+        	 * 
+        	 * */
+        	this.times.timeList.forEach((t)->deliveryList.put(t.getTrackingNumber()+"-"+ t.getHour()));
+        	
+        	/*
+        	 * Places the array into the JSONObject
+        	 * */
+        	JSONPersist.put(""+shipdate+"", deliveryList);
+        	//JSONPersist.put(this.orderSequence. //.getoNum().getOrderNumber(), o.getDistance());
+        	//for(int i=0; i<orders.orderList.size();i++) {
+			//	JSONPersist.put()
+			//}
+        	file.write(JSONPersist.toString());
+			file.flush();
+			file.close();
+        	//for(Order o: this.orders) {
+    		//	this.JSONPersist.put(o.oNum.getOrderNumber(), o.getDistance());
+    		//}
+			
+			//Debug outputs
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + JSONPersist.toString());
+			System.out.println(" Print time table: ");
+			
+			
+			this.times.timeList.forEach((t)->System.out.println(t.toString()));
+        }catch(IOException e) {
+        	e.printStackTrace();
+        }//End Make Manifest
+
+		/*try{
+			//this.file.write(this.JSONPersist.toString());
+			//this.file.flush();
+			//this.file.close();
+			
+			System.out.println("------------------------------------------");
+
+			System.out.println("\nJSON Object: " + this.JSONPersist.toString());
+		} catch(IOException e){
+			e.printStackTrace();
+		}finally {
+			/*
+			try{file.flush();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			try{file.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			if (file!=null) {
+				try {
+					this.file.flush();
+					this.file.close();
+				}catch (IOException e) {
+					//report exception
+				}
+			}
+		} */
+		}
+        //End make manifest
+	// makeManifest()
+	/* Original makeManifest() method
+	 * Updated as per Martin's suggestion 
+	 * re: outputting a simulated time
+	 * This is now present for documentation purposes/ debug
+	 * The current operational makeManifest() is above
+	 * */
+	public void makeManifest(int run) {
         LocalDate shipdate = LocalDate.now();
         //Establishes time table
         this.timeTable();
