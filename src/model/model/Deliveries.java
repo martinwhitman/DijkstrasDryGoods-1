@@ -659,15 +659,9 @@ public class Deliveries extends Graph{
          */
         //graph.addOrder(oNum,source, destination, weight);
         
-        graph.addOrder("one",0, 1, 4);
-        graph.addOrder("two",0, 2, 3);
-        graph.addOrder("three",0, 2, 1);
-        graph.addOrder("four",0, 3, 2);
-        graph.addOrder("five",0, 3, 4);
-        graph.addOrder("six",0, 4, 2);
-        graph.addOrder("seven",0, 5, 6);
 
-        graph.find_Route(source_vertex);
+
+        //graph.find_Route(source_vertex);
         Deliveries graph2 = new Deliveries(vertices);
         
 
@@ -702,6 +696,8 @@ public class Deliveries extends Graph{
        // graph3.addOrder(o6);
         //graph3.addOrder(o7 );
         /* 
+         * 
+         * 
          * makeManifest()
          * Inits a JSON object and creates a text file for use with the site.
          * */
@@ -714,6 +710,18 @@ public class Deliveries extends Graph{
         graph3.addOrder("four",0, 3, 2);
         graph3.find_Route(source_vertex);
         graph3.makeManifest();
+        
+        
+        
+        graph.addOrder("one",0, 1, 4);
+        graph.addOrder("two",0, 2, 3);
+        graph.addOrder("three",0, 2, 1);
+        graph.addOrder("four",0, 3, 2);
+        graph.addOrder("five",0, 3, 4);
+        graph.addOrder("six",0, 4, 2);
+        graph.addOrder("seven",0, 5, 6);
+        graph.find_Route(source_vertex);
+        graph.makeManifest();
         /*
         graph.addEdge(0, 1, 4);
         graph.addEdge(0, 2, 3);

@@ -440,7 +440,10 @@ public class DijkstraPQ {
         public static void main(String[] args) {
             int vertices = 6;
             Graph graph = new Graph(vertices);
-        /**    graph.addEdge(0, 1, 4);
+        /** 
+         * 
+         *    
+         *    graph.addEdge(0, 1, 4);
             graph.addEdge(0, 2, 3);
             graph.addEdge(1, 2, 1);
             graph.addEdge(1, 3, 2);
