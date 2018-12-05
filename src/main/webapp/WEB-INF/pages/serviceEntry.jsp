@@ -3,30 +3,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=ISO-8859-1">
+<meta charset="ISO-8859-1">
 <title>Service Interface</title>
 </head>
 <body>
 <h2>User Selections</h2>
 Please make a selection from the following choices:
 <br />
-<b>
-<font face="fantasy" size="4">
-<a href = "viewByOrder.html">View a customer order by the order number.</a>
-<a href = "editInventory.html">Edit inventory figures.</a>
-<a href = "viewCurrentInventory.html">View current inventory.</a>
-<a href = "viewPendingDeliveries.html">View pending/in transit shipments.</a>
+
+<font face="Times New Roman" size="4">
+<a href = "viewByOrder.mvc">View a customer order by the order number.</a><br />
+<a href = "editInventory.mvc">Edit inventory figures.</a><br />
+<a href = "viewCurrentInventory.mvc">View current inventory.</a><br />
+<a href = "viewPendingDeliveries.mvc">View pending/in transit shipments.</a><br />
 </font>
-</b>
+
 <h2>Manager Options</h2>
 Please make a selection from the following choices:
 <br />
 <b>
-<font face="fantasy" size="4">
-<a href = "viewSalesByProd.html">View sales by product.</a>
-<a href = "viewOverallSales.html">View overall sales figures.</a>
-<a href = "calculateProfitLoss.html">Calculate profit/loss by product.</a>
-<a href = "calculateLogistics.html">Calculate efficient delivery logistics.</a>
+<font face="Times New Roman" size="4">
+<a href = "viewSalesByProd.mvc">View sales by product.</a><br />
+<a href = "viewOverallSales.mvc">View overall sales figures.</a><br />
+<a href = "calculateProfitLoss.mvc">Calculate profit/loss by product.</a><br />
+<a href = "calculateLogistics.mvc">Calculate efficient delivery logistics.</a>
 </font>
 </b>
 </body>
