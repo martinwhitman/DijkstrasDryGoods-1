@@ -1,6 +1,12 @@
 package spring.DDG;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 public class OrderTracking {
@@ -37,8 +43,33 @@ public class OrderTracking {
 	}
 	public void setDeliveryOrder() {
 		//stand in for json parsing text which i am revising
-		this.deliveryOrder = 2;
+		String s = this.getTrackingNumber();
+		JSONParser parser = new JSONParser();
+			
+			try {
+				JSONObject a = (JSONObject)parser.parse(new FileReader("C:\\Users\\marti\\eclipse-workspace\\DijkstrasDryGoods\\src\\main\\webapp\\manifest.json"));
+				int dO = ((Long)a.get(s)).intValue();
+				this.deliveryOrder=dO;
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+		
+		
+		
 	}
 	
 	
 }
+
