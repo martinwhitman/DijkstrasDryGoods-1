@@ -54,6 +54,62 @@ public class OrderController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/viewByOrder")
+	public ModelAndView viewByOrder() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("orderViewer");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/editInventory")
+	public ModelAndView editInventory() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("inventoryEdit");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/viewCurrentInventory")
+	public ModelAndView viewCurrentInventory() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("inventoryView");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/viewPendingDeliveries")
+	public ModelAndView viewPendingDeliveries() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("deliveryView");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/viewSalesByProd")
+	public ModelAndView viewSalesByProd() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("salesView");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/calculateProfitLoss")
+	public ModelAndView calculateProfitLoss() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("profitLoss");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/calculateLogistics")
+	public ModelAndView calculateLogistics() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("logisticsCalc");
+		
+		return modelAndView;
+	}
 	@Bean
 	public OrderDao dao() {
 		OrderDao bean = new OrderDao();
