@@ -25,12 +25,12 @@ public class OrderDao {
 	}
 	
 	//adding service side option to view customer's order by order number
-	public Order viewOrder(int on) {
+	public String viewOrder(int on) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
 		Order found = em.find(Order.class, on);
 		em.close();
-		return found;
+		return found.toString();
 	}
 	
 	//adding service side option to view full inventory

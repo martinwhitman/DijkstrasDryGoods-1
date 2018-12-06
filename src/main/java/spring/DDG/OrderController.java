@@ -56,8 +56,9 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/viewByOrder")
-	public ModelAndView viewByOrder() {
+	public ModelAndView viewByOrder(int orderNo) {
 		ModelAndView modelAndView = new ModelAndView();
+		dao.viewOrder(orderNo);
 		modelAndView.setViewName("orderViewer");
 		
 		return modelAndView;
