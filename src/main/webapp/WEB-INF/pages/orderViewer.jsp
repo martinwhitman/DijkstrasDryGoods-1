@@ -7,9 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>View By Customer Order Number</title>
-<script>
-
-</script>
 </head>
 <body>
 <h2>View by Order Number</h2>
