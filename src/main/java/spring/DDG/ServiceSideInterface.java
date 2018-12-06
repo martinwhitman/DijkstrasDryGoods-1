@@ -10,18 +10,19 @@ public class ServiceSideInterface {
 	static OrderDao od = new OrderDao();
 	
 	public static void main(String[] args) {
-		
+		int orderNumber;
 		runMenu();
 	}
 	
 	//generate the details of a specified customer's order using the order number
 	//works in conjunction with ViewOrder from OrderDao and ReturnOrderDetails from
 	//Order.java program
-	private static void viewCustomerOrder() {
+	private static void viewCustomerOrder(int on) {
+		
 		System.out.println("Please enter the order number you would like to view: ");
-		int orderNo = in.nextInt();
-		Order found = od.viewOrder(orderNo);
-		System.out.println(found.returnOrderDetails());
+		//int orderNo = in.nextInt();
+		//Order found = od.viewOrder(orderNo);
+		//System.out.println(found.returnOrderDetails());
 	}
 	
 	//generate a full list of the existing orders from the database, for use with 
