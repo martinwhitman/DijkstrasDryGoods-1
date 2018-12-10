@@ -12,7 +12,7 @@ Please make a selection from the following choices:
 <br />
 
 <font face="Times New Roman" size="4">
-<a href = "viewByOrder.mvc">View a customer order by the order number.</a><br />
+<a href = "orderViewForm.mvc">View a customer order by the order number.</a><br />
 <a href = "editInventory.mvc">Edit inventory figures.</a><br />
 <a href = "viewCurrentInventory.mvc">View current inventory.</a><br />
 <a href = "viewPendingDeliveries.mvc">View pending/in transit shipments.</a><br />

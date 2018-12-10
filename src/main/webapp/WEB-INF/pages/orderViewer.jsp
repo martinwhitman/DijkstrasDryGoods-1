@@ -10,15 +10,17 @@
 </head>
 <body>
 <h2>View by Order Number</h2>
-<mvc:form modelAttribute="viewByOrder" action="result.mvc" id="visible">
+<mvc:form modelAttribute="viewByOrder" action="orderViewResult.mvc" id="visible">
 	    <p>
-	        <mvc:label path="orderNumber">
+	        <label>
 	        <span>Customer Order Number:</span>
-	        </mvc:label>
-			<mvc:input path="orderNumber" id="ordernumber"/>        
+	        </label>
+			<input id="orderNumber"/>        
 	    </p>
-        <p> <input id="submit" id="submit" value="Submit" class="button button1"/>
+        <p> <input type="submit" id="submit" value="Submit" class="button button1"/>
         	</p> 
 </mvc:form>
+<a href = "editInventory.mvc">Edit inventory figures.</a><br />
+<a href = "serviceSide.mvc">Return to main.</a><br />
 </body>
 </html>

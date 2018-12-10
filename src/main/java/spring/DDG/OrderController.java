@@ -1,5 +1,7 @@
 package spring.DDG;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -11,16 +13,25 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class OrderController {
 	@Autowired OrderDao dao;
+	private static final String[ ] products = {"Motherboard", "Processor", "Solid State Drive", "Blue Ray Burner", "CPU Air Cooler", "SDRAM DDR4", "Gaming Video Card", "650W Power Supply", "Steel Tower", "Hard Drive", "Booksize Barebone System", "HDMI Cable"};
+	
+	/**
+	 * Martin
+	 * @return
+	 */
 	@RequestMapping(value = "/formOrder")
-	public ModelAndView order( ){
+	public ModelAndView order(){
 		ModelAndView modelAndView = new ModelAndView( );
-		
 		modelAndView.setViewName("orderForm");
 		modelAndView.addObject("order", new Order( ));
-		
-		
 		return modelAndView;
 	}
+	
+	/**
+	 * Martin
+	 * @param order
+	 * @return
+	 */
 	@RequestMapping(value = "/result")
 	public ModelAndView processOrder(Order order){
 		
@@ -30,6 +41,11 @@ public class OrderController {
 		modelAndView.addObject("o", order);
 		return modelAndView;
 	}
+	
+	/**
+	 * Martin
+	 * @return
+	 */
 	@RequestMapping(value="/trackOrder")
 	public ModelAndView trackOrder() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -37,6 +53,12 @@ public class OrderController {
 		modelAndView.addObject("trackingNumber",new OrderTracking());
 		return modelAndView;
 	}
+	
+	/**
+	 * Martin
+	 * @param trackingNumber
+	 * @return
+	 */
 	@RequestMapping(value="/trackResult")
 	public ModelAndView trackResult(OrderTracking trackingNumber) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -47,19 +69,50 @@ public class OrderController {
 		return modelAndView;
 	}
 	
+	/**
+	 * Mysti **complete**
+	 * @return
+	 */
 	@RequestMapping(value="/serviceSide")
 	public ModelAndView serviceSide() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("serviceEntry");
-		
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/viewByOrder")
-	public ModelAndView viewByOrder(int orderNo) {
+	//@RequestMapping(value="/viewByOrder")
+	/*public ModelAndView viewByOrder(int orderNo) {
 		ModelAndView modelAndView = new ModelAndView();
 		dao.viewOrder(orderNo);
 		modelAndView.setViewName("orderViewer");
+		
+		return modelAndView;
+	}*/
+	
+	/**
+	 * View a customer order by the order number using orderViewer.jsp, 
+	 * 
+	 * @return order information
+	 */
+	@RequestMapping(value="/orderViewForm")
+	public ModelAndView orderViewForm() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("orderViewer");
+		modelAndView.addObject("orderView", new Order());
+		return modelAndView;
+	}
+	
+	/**
+	 * Provides the order information based on the viewOrderForm above
+	 * @param on
+	 * @return
+	 */
+	@RequestMapping(value="/orderViewResult")
+	public ModelAndView orderViewResult(Integer on) {
+		ModelAndView modelAndView = new ModelAndView();
+		dao.viewOrder(on);
+		modelAndView.setViewName("orderViewResult");
+		modelAndView.addObject("o", order());
 		
 		return modelAndView;
 	}
@@ -75,8 +128,10 @@ public class OrderController {
 	@RequestMapping(value="/viewCurrentInventory")
 	public ModelAndView viewCurrentInventory() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("inventoryView");
 		
+		List<Order> fullInventory = dao.generateList();
+		modelAndView.setViewName("inventoryView");
+		modelAndView.addObject("all", fullInventory);
 		return modelAndView;
 	}
 	
