@@ -11,10 +11,9 @@ public class ServiceSideInterface {
 	private static void editAnItemInventory(Integer identifier, Integer newNumber) {
 		int productID = identifier.intValue();
 		int newFigure = newNumber.intValue();
-		if (productID == 1) {
-			
-		}
-
+		ServiceUpdates figureToUpdate = new ServiceUpdates();
+		figureToUpdate.setId(productID);
+		figureToUpdate.setAvailable(newFigure);
 	}
 	
 	//generate the details of a specified customer's order using the order number

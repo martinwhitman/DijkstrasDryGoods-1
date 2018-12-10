@@ -64,12 +64,14 @@ public class OrderDao {
 		em.close();
 	}
 	
-	public void updateProduct(String products[]) {
+	public void updateProduct(Integer identification, Integer newValue) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		String product = products.toString();
-		System.out.println(product);
-		//em.merge(products);
+		int productID = identification.intValue();
+		int newFigure = newValue.intValue();
+		ServiceUpdates figureToUpdate = new ServiceUpdates();
+		figureToUpdate.setAvailable(newFigure);
+		em.merge(newValue);
 		em.getTransaction().commit();
 		em.close();
 	}

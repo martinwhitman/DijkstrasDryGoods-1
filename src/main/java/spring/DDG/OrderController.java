@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.Deliveries;
+
 @Controller
 public class OrderController {
 	@Autowired OrderDao dao;
@@ -53,16 +55,42 @@ public class OrderController {
 		return modelAndView;
 	}
 	
+	/**
+	 * 
+	 * Allows a user to see pending deliveries...needs Deliveries.java to work to implement.
+	 * @return
+	 */
 	@RequestMapping(value="/viewPendingDeliveries")
 	public ModelAndView viewPendingDeliveries() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("deliveriesPending");
-		modelAndView.addObject("trackingNumber", new OrderTracking());
+		modelAndView.addObject("trackingNumber", new OrderTracking()); //this needs to be changed to utilize Deliveries.java
 		return modelAndView;
 	}
 	
 	/**
-	 * Martin
+	 * need Deliveries.java functional to complete, works with 
+	 * logisticsCalc.jsp and logistics.jsp
+	 * @return
+	 */
+	@RequestMapping(value="/calculateLogistics")
+	public ModelAndView calculateLogistics() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("logisticsCalc");
+		modelAndView.addObject("logistics", new Deliveries());
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/editInventory")
+	public ModelAndView editInventory() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("inventoryEdit");
+		modelAndView.addObject("available", new ServiceUpdates());
+		return modelAndView;
+	}
+	
+	/**
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value="/trackOrder")
@@ -74,28 +102,21 @@ public class OrderController {
 	}
 	
 	/**
-	 * CURRENTLY WORKING
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/editInventory")
-	public ModelAndView editInventory() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		modelAndView.setViewName("inventoryEdit");
-		modelAndView.addObject("products", products);
-		return modelAndView;
-	}
+
 	
 	@RequestMapping(value="/updatedInventoryResult")
 	public ModelAndView updatedInventoryResult( ) {
 		ModelAndView modelAndView = new ModelAndView();
-		dao.updateProduct(products);
+		//dao.updateProduct(products);
 		modelAndView.setViewName("updatedInventory");
 		return modelAndView;
 	}
 	
 	/**
-	 * Martin
+	 * 
 	 * @param order
 	 * @return
 	 */
@@ -112,7 +133,7 @@ public class OrderController {
 
 	
 	/**
-	 * Martin
+	 * 
 	 * @param trackingNumber
 	 * @return
 	 */
@@ -127,7 +148,7 @@ public class OrderController {
 	}
 	
 	/**
-	 * Mysti **complete**
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value="/serviceSide")
@@ -193,13 +214,6 @@ public class OrderController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/calculateLogistics")
-	public ModelAndView calculateLogistics() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("logisticsCalc");
-		
-		return modelAndView;
-	}
 	@Bean
 	public OrderDao dao() {
 		OrderDao bean = new OrderDao();

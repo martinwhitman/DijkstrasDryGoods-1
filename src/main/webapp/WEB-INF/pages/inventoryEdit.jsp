@@ -21,69 +21,77 @@
 	    <p>
 	    	<input type="radio" name="name" value="2"> Processor<br>
 	        <label>
-	        <span>Processor:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="new"/>        
 	    </p>
 	    <p>
-	    	<input type="radio" name="name" value="3"> Motherboard<br>
+	    	<input type="radio" name="name" value="3"> Solid State Drive<br>
 	        <label>
-	        <span>Solid State Drive:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="3"/>        
 	    </p>
 	    <p>
-	    	<input type="radio" name="name" value="4"> Motherboard<br>
+	    	<input type="radio" name="name" value="4"> Blue Ray Burner<br>
 	        <label>
-	        <span>Blue Ray Burner:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="4"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="5"> CPU Air Cooler<br> 
 	        <label>
-	        <span>CPU Air Cooler:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="5"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="6"> SDRAM DDR4<br> 
 	        <label>
-	        <span>SDRAM DDR4:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="6"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="7"> Gaming Video Card<br> 
 	        <label>
-	        <span>Gaming Video Card:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="7"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="8"> 650W Power Supply<br> 
 	        <label>
-	        <span>650W Power Supply:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="8"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="9"> Steel Tower<br> 
 	        <label>
-	        <span>Steel Tower:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="9"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="10"> Hard Drive<br> 
 	        <label>
-	        <span>Hard Drive:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="10"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="11"> Barebone System<br> 
 	        <label>
-	        <span>Barebone System:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="11"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="12"> HDMI Cable<br> 
 	        <label>
-	        <span>HDMI Cable:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
 			<input id="12"/>        
 	    </p>
