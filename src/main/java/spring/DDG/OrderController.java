@@ -16,7 +16,7 @@ public class OrderController {
 	private static final String[ ] products = {"Motherboard", "Processor", "Solid State Drive", "Blue Ray Burner", "CPU Air Cooler", "SDRAM DDR4", "Gaming Video Card", "650W Power Supply", "Steel Tower", "Hard Drive", "Booksize Barebone System", "HDMI Cable"};
 	
 	/**
-	 * Martin
+	 * Used to enter a new order.
 	 * @return
 	 */
 	@RequestMapping(value = "/formOrder")
@@ -24,6 +24,73 @@ public class OrderController {
 		ModelAndView modelAndView = new ModelAndView( );
 		modelAndView.setViewName("orderForm");
 		modelAndView.addObject("order", new Order( ));
+		return modelAndView;
+	}
+	
+	/**
+	 * Used to generate a full list of all orders in inventory.
+	 * @return
+	 */
+	@RequestMapping(value = "/viewAll")
+	public ModelAndView viewAll( ){
+		ModelAndView modelAndView = new ModelAndView();
+		List<Order> allOrders = dao.getAllOrders();
+		modelAndView.setViewName("viewAllOrders");
+		modelAndView.addObject("all", allOrders);
+		return modelAndView;
+	}
+	
+	/**
+	 * Used to generate a full inventory list.
+	 * @return
+	 */
+	@RequestMapping(value="/viewCurrentInventory")
+	public ModelAndView viewCurrentInventory() {
+		ModelAndView modelAndView = new ModelAndView();
+		List<ServiceUpdates> fullInventory = dao.getAllInventory();
+		modelAndView.setViewName("inventoryView");
+		modelAndView.addObject("all", fullInventory);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/viewPendingDeliveries")
+	public ModelAndView viewPendingDeliveries() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("deliveriesPending");
+		modelAndView.addObject("trackingNumber", new OrderTracking());
+		return modelAndView;
+	}
+	
+	/**
+	 * Martin
+	 * @return
+	 */
+	@RequestMapping(value="/trackOrder")
+	public ModelAndView trackOrder() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("orderTrack");
+		modelAndView.addObject("trackingNumber",new OrderTracking());
+		return modelAndView;
+	}
+	
+	/**
+	 * CURRENTLY WORKING
+	 * @return
+	 */
+	@RequestMapping(value="/editInventory")
+	public ModelAndView editInventory() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("inventoryEdit");
+		modelAndView.addObject("products", products);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/updatedInventoryResult")
+	public ModelAndView updatedInventoryResult( ) {
+		ModelAndView modelAndView = new ModelAndView();
+		dao.updateProduct(products);
+		modelAndView.setViewName("updatedInventory");
 		return modelAndView;
 	}
 	
@@ -42,17 +109,7 @@ public class OrderController {
 		return modelAndView;
 	}
 	
-	/**
-	 * Martin
-	 * @return
-	 */
-	@RequestMapping(value="/trackOrder")
-	public ModelAndView trackOrder() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("orderTrack");
-		modelAndView.addObject("trackingNumber",new OrderTracking());
-		return modelAndView;
-	}
+
 	
 	/**
 	 * Martin
@@ -110,38 +167,15 @@ public class OrderController {
 	@RequestMapping(value="/orderViewResult")
 	public ModelAndView orderViewResult(Integer on) {
 		ModelAndView modelAndView = new ModelAndView();
+		Order orderToDisplay = null;
 		dao.viewOrder(on);
+		
 		modelAndView.setViewName("orderViewResult");
-		modelAndView.addObject("o", order());
+		modelAndView.addObject("o", orderToDisplay);
 		
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/editInventory")
-	public ModelAndView editInventory() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("inventoryEdit");
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value="/viewCurrentInventory")
-	public ModelAndView viewCurrentInventory() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		List<Order> fullInventory = dao.generateList();
-		modelAndView.setViewName("inventoryView");
-		modelAndView.addObject("all", fullInventory);
-		return modelAndView;
-	}
-	
-	@RequestMapping(value="/viewPendingDeliveries")
-	public ModelAndView viewPendingDeliveries() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("deliveryView");
-		
-		return modelAndView;
-	}
+
 	
 	@RequestMapping(value="/viewSalesByProd")
 	public ModelAndView viewSalesByProd() {

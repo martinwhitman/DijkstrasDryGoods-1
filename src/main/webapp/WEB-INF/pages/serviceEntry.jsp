@@ -16,6 +16,7 @@ Please make a selection from the following choices:
 <a href = "editInventory.mvc">Edit inventory figures.</a><br />
 <a href = "viewCurrentInventory.mvc">View current inventory.</a><br />
 <a href = "viewPendingDeliveries.mvc">View pending/in transit shipments.</a><br />
+<a href = "viewAll.mvc">View all orders.</a>
 </font>
 
 <h2>Manager Options</h2>

@@ -10,78 +10,82 @@
 </head>
 <body>
 <h2>Edit Inventory Figures</h2>
-<mvc:form modelAttribute="editInventory" action="updatedInventoryResult.mvc" id="visible">
+<mvc:form modelAttribute="editInventory" action="viewCurrentInventory.mvc" id="visible">
 	    <p>
+	    	<input type="radio" name="name" value="1"> Motherboard<br> 
 	        <label>
-	        <span>Motherboard:</span>
+	        <span>New Inventory Figure:</span>
 	        </label>
-			<input id="mb"/>        
+			<input id="new"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="2"> Processor<br>
 	        <label>
 	        <span>Processor:</span>
 	        </label>
-			<input id="processor"/>        
+			<input id="new"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="3"> Motherboard<br>
 	        <label>
 	        <span>Solid State Drive:</span>
 	        </label>
-			<input id="ssd"/>        
+			<input id="3"/>        
 	    </p>
 	    <p>
+	    	<input type="radio" name="name" value="4"> Motherboard<br>
 	        <label>
 	        <span>Blue Ray Burner:</span>
 	        </label>
-			<input id="BRB"/>        
+			<input id="4"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>CPU Air Cooler:</span>
 	        </label>
-			<input id="cac"/>        
+			<input id="5"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>SDRAM DDR4:</span>
 	        </label>
-			<input id="sdram"/>        
+			<input id="6"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>Gaming Video Card:</span>
 	        </label>
-			<input id="gvc"/>        
+			<input id="7"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>650W Power Supply:</span>
 	        </label>
-			<input id="ps"/>        
+			<input id="8"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>Steel Tower:</span>
 	        </label>
-			<input id="st"/>        
+			<input id="9"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>Hard Drive:</span>
 	        </label>
-			<input id="hd"/>        
+			<input id="10"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>Barebone System:</span>
 	        </label>
-			<input id="bbs"/>        
+			<input id="11"/>        
 	    </p>
 	    <p>
 	        <label>
 	        <span>HDMI Cable:</span>
 	        </label>
-			<input id="hc"/>        
+			<input id="12"/>        
 	    </p>
         <p> <input type="submit" id="submit" value="Submit" class="button button1"/>
         </p> 
