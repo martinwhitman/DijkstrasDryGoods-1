@@ -42,6 +42,7 @@ public class Deliveries extends Graph{
 	Orders orders;
 	Times times;
 	HashMap<String, String> routeData;
+	Vector<Integer> timesList;
 	
 	//Vector<DelTime> times;
 
@@ -190,6 +191,7 @@ public class Deliveries extends Graph{
 		 this.deliveryList = new JSONArray();
 		 this.times= new Times();
 		 routeData = new LinkedHashMap<>();
+		 timesList = new Vector<Integer>();
 		/*
 		 *     static class Edge {
         int source;
@@ -217,6 +219,7 @@ public class Deliveries extends Graph{
 		 this.deliveryList = new JSONArray();
 		 this.times= new Times();
 		 routeData = new LinkedHashMap<>();
+		 timesList = new Vector<Integer>();
 		
 		for(Order o : incomingOrders) {
 		this.addOrder(
@@ -329,6 +332,7 @@ public class Deliveries extends Graph{
 		Integer hours = null;
 		Integer mins= null;
 		Integer hundredHours =null;
+		final int AVERAGE = 14;
 		/*
 		 * x = (long)(x / y); will get integer part of the operation
 		 * 220/60 = 3 //integer division, regular division would give 3.666-
@@ -346,7 +350,65 @@ public class Deliveries extends Graph{
 		//System.out.println(" minToHour, mins: "+ mins);
 		hundredHours = hours+mins;	
 		//System.out.println(" minToHour, hundred hours: "+ hundredHours);
+		
+		if(this.timesList.contains(hundredHours)) {
+			if(this.timesList.lastElement().equals(hundredHours)) {
+				hundredHours = minToHour((minutes+AVERAGE),0);
+				return hundredHours;
+			}else {
+				hundredHours = minToHour((minutes+AVERAGE),0);
+				return hundredHours;
+			}
+			
+		}else {
 		return hundredHours;
+		}
+		
+	}
+	public Integer minToHour(Integer minutes,Integer run) {
+		/*
+		 * reference:
+		 * https://stackoverflow.com/questions/47752102/force-integer-division-on-a-double
+		 * 
+		 * */
+		final int DISPATCH = 700; //Start of day
+		final int HOUR = 60; // Minutes in an hour for conversion
+		final int HUNDRED = 100; // Converts the integer of hour(s)to a 2400 hour format
+		final int AVERAGE = 14;
+		Integer hours = null;
+		Integer mins= null;
+		Integer hundredHours =null;
+		
+		/*
+		 * x = (long)(x / y); will get integer part of the operation
+		 * 220/60 = 3 //integer division, regular division would give 3.666-
+		 * 
+		 * */
+		//System.out.println(" minToHour, minutes in: "+ minutes);
+		hours = ((Integer)(minutes/HOUR));
+		hours*= HUNDRED;
+		hours+= DISPATCH;
+		//System.out.println(" minToHour, hours: "+ hours);
+		/* Should return minute portion that is not hour
+		 * 220%60 = 40
+		 * */
+		
+		mins = (minutes%HOUR);
+		//System.out.println(" minToHour, mins: "+ mins);
+		hundredHours = hours+mins;	
+		//System.out.println(" minToHour, hundred hours: "+ hundredHours);
+		if(this.timesList.contains(hundredHours)) {
+			if(this.timesList.lastElement().equals(hundredHours)) {
+				hundredHours = minToHour((minutes+AVERAGE),0);
+				return hundredHours;
+			}else {
+				hundredHours = minToHour((minutes+AVERAGE),0);
+				return hundredHours;
+			}
+			
+		}else {
+		return hundredHours;
+		}
 	}
 	
 	/*
@@ -355,24 +417,47 @@ public class Deliveries extends Graph{
 	 * this.orderSequences 's vectors
 	 * 
 	 * */
+	@SuppressWarnings("null")
 	public void timeTable() {
 		final Integer AVERAGE = 14;
+		final Integer INCREMENTER = 1;
+		final Integer START_OF_DAY = 700;
 		Vector<DelTime> holding = null;
 		DelTime holder=null;
 		Integer timeTemp = null;
+		//Vector<Integer> timesList = new Vector<Integer>();
+		this.timesList.add(START_OF_DAY);
+		
 		/**
 		orderSequence.forEach((o)->this.times.addTime(s
 				minToHour(o.getDistance()*AVERAGE),o.getoNum().getOrderNumber()));
 		**/
 		for(int i =0;i<this.orderSequence.size();i++) {
+			//System.out.println(" Current times in route: " +timesList.toString());
 			timeTemp = (minToHour((orderSequence.get(i).getDistance()*AVERAGE)));
+			
 			//System.out.println("Time temp: "+timeTemp);
 			//System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
 			//System.out.println("Order: "+i+" "+ orderSequence.get(i).getDistance());
 			//System.out.println("Order minutes: "+i+" "+ (orderSequence.get(i).getDistance()*AVERAGE));
-			this.times.addTime(timeTemp,
+			if(timesList.contains(timeTemp)) {
+				//System.out.println("Order Conflict of Order #:"+(i+INCREMENTER)+" current time is: "+timeTemp);
+				//timeTemp=(minToHour(orderSequence.get(i).getDistance()*AVERAGE,timeTemp));
+				
+				timeTemp = (minToHour((orderSequence.get(i).getDistance()*AVERAGE)+AVERAGE,START_OF_DAY));
+				timesList.add(timeTemp);
+				//System.out.println("New time is: "+timeTemp);
+				this.times.addTime((timeTemp),		
 					orderSequence.get(i).getoNum().getOrderNumber());
 			//System.out.println("Time Created ");
+		}else {
+			//System.out.println("New Time registered for route "+(i+INCREMENTER)+  "!");
+			//System.out.println("New Time : "+timeTemp);
+			timesList.add(timeTemp);
+			this.times.addTime(timeTemp,		
+					orderSequence.get(i).getoNum().getOrderNumber());
+			
+		} 
 		}
 	}	
 		

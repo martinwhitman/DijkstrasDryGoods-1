@@ -368,7 +368,7 @@ public class DijkstraPQ{
                     //iterate through all the adjacent vertices and update the keys
                     LinkedList<Order> list = adjacencylist[extractedVertex];
                     for (int i = 0; i < list.size(); i++) {
-                    	System.out.println("Order in pos :"+i+" of "+list.size());
+                    	System.out.println("Order in pos :"+i+" item: "+list.get(i).toString()+" of "+list.size());
                         /**Edge edge = list.get(i);*/
                         Order order = list.get(i);
                         Order orderCopy = new Order(order.getoNum(),order.getoLoc()); 
@@ -390,8 +390,10 @@ public class DijkstraPQ{
                             	//Edge thisEdge = new Edge (q.getValue(0), q.getValue(1));
                             	//OrderLocation =(SOURCE, thisEdge);
                             	//Order  thisOrder = new Order(q.getValue(2),thisEdge);
+                            	order.setDistance(currentKey);
                             	pq.offer(q);
-                            	//orderSequence.addElement(order);
+                            	System.out.println("PQ Q set: "+pq.toString());
+                            	orderSequence.addElement(order);
                             	
 
                                 
@@ -400,7 +402,7 @@ public class DijkstraPQ{
                                 Triplet<Integer, Integer,String> p = new Triplet<Integer, Integer, String>(newKey, destination,currentOrder);
                                 order.setDistance(newKey);
                                 pq.offer(p);
-                                System.out.println("PQ set: "+pq.toString());
+                                System.out.println("PQ P set: "+pq.toString());
                                 orderSequence.addElement(order);
                                 distance[destination] = newKey;
                             	//orderSequence.addElement(orderCopy);
