@@ -25,19 +25,34 @@ public class OrderDao {
 	}
 	
 	//adding service side option to view customer's order by order number
-	public String viewOrder(int on) {
+	public Order viewOrder(Integer orderno) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		Order found = em.find(Order.class, on);
+		Order found = em.createQuery("Select o from Order o where o.orderNumber = :orderNumber", Order.class).setParameter("orderNumber", orderno).getSingleResult();
 		em.close();
-		return found.toString();
+		return found;
+	}
+	
+	public List<Order> generateList() {
+		EntityManager em = emfactory.createEntityManager();
+		TypedQuery<Order> typedQuery = em.createQuery("select o from Order o", Order.class);
+		List<Order> list = typedQuery.getResultList();
+		em.close();
+		/*EntityManager em = emfactory.createEntityManager();
+		em.getTransaction().begin();
+		String o = "select o from Order o";
+		TypedQuery<Order> typedQuery = em.createQuery(o, Order.class);
+		List<Order> list = typedQuery.getResultList();
+		em.close();*/
+		return list;	
 	}
 	
 	//adding service side option to view full inventory
 	public List<Order> showAllInventory() {
 		EntityManager em = emfactory.createEntityManager();
-		//I may need to change the query criteria
-		TypedQuery<Order> typedQuery = em.createQuery("select orderNumber from Order orderNumber", Order.class);
+		em.getTransaction().begin();
+		String o = "select o from Order o";
+		TypedQuery<Order> typedQuery = em.createQuery(o, Order.class);
 		List<Order> allInventory = typedQuery.getResultList();
 		em.close();
 		return allInventory;

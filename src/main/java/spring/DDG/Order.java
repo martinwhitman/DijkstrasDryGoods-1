@@ -11,6 +11,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="OrderItems")
 public class Order {
+	
+	//private ProductType product;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int orderNumber;
@@ -144,6 +146,12 @@ public class Order {
 		this.hc = hc;
 	}
 	
+	/*public ProductType getProduct() {
+		return product;
+	}
+	public void setProduct(ProductType product) {
+		this.product = product;
+	}*/
 	//adding for use in view full inventory method and view order(s) methods
 	public String returnOrderDetails() {
 		return ("Order Number: " + orderNumber + "Motherboards: " + mb + "Processors: " + processor + "Solid State Drives: " + ssd + "Bluray Burners: " + BRB + "CPU Air Coolers: " + cac + "SDRAM DDR4: " + sdram + "Gaming Video Cards: " + gvc + "Power Supplies: " + ps + "Steel Towers: " + st + "Hard Drives: " + hd + "Booksize Barebones Systems: " + bbs + "HDMI Cables: " + hc + "Street: " + street + "City: " + city);
