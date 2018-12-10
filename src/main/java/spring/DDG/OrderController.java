@@ -62,8 +62,9 @@ public class OrderController {
 	@RequestMapping(value="/trackResult")
 	public ModelAndView trackResult(OrderTracking trackingNumber) {
 		ModelAndView modelAndView = new ModelAndView();
-		trackingNumber.setDeliveryOrder();
+		
 		trackingNumber.setScheduledDelivery();
+		
 		modelAndView.setViewName("trackResult");
 		modelAndView.addObject("t", trackingNumber);
 		return modelAndView;
