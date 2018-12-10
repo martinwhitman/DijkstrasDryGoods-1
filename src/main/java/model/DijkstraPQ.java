@@ -332,7 +332,8 @@ public class DijkstraPQ{
             //override the comparator to do the sorting based keys
            // PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(vertices, new Comparator<Pair<Integer, Integer>>() {
             PriorityQueue<Triplet<Integer, Integer, String>> pq = new PriorityQueue<Triplet<Integer, Integer, String>>(vertices, new Comparator<Triplet<Integer, Integer,String>>() {   
-            public int compare(Triplet<Integer, Integer, String> p1, Triplet<Integer, Integer,String> p2) {
+            @Override
+            	public int compare(Triplet<Integer, Integer, String> p1, Triplet<Integer, Integer,String> p2) {
                     //sort using distance values
                     int key1 = p1.getValue0();
                     int key2 = p2.getValue0();
