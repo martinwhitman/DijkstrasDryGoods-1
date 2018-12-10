@@ -7,29 +7,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Inventory</title>
+<title>Delivery Logistics</title>
 </head>
 <body>
 	<c:forEach items="${all}" var="item">
 		<table>
 			<tr>
-				<td>Item ID</td>
-				<td>${item.id}</td>
+				<td>Tracking Number</td>
+				<td>${item.trackingNumber}</td>
 			</tr>
 			<tr>
-				<td>Product</td>
-				<td>${item.name}</td>
+				<td>Delivery Order</td>
+				<td>${item.deliveryOrder}</td>
 			</tr>
 			<tr>
-				<td>Price</td>
-				<td>${item.price}</td>
-			</tr>
-			<tr>
-				<td>Available</td>
-				<td>${item.available}</td>
-			</tr>
-			<tr> 
-				<td><a href = "editInventory.mvc">Edit inventory figures.</a></td>
+				<td>Scheduled Delivery</td>
+				<td>${item.scheduledDelivery}</td>
 			</tr>
 		</table>
 		<br />

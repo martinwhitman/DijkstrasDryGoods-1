@@ -14,17 +14,9 @@ public class OrderTracking {
 	int deliveryOrder;
 	String scheduledDelivery;
 	
-	
-	
-	/**
-	 * 
-	 */
+
 	public OrderTracking() {
 	}
-	/**
-	 * @param trackingNumber
-	 * @param deliveryOrder
-	 */
 	
 	public String getScheduledDelivery() {
 		return scheduledDelivery;

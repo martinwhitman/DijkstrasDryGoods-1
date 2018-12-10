@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.Deliveries;
+
 @Controller
 public class OrderController {
 	@Autowired OrderDao dao;
 	private static final String[ ] products = {"Motherboard", "Processor", "Solid State Drive", "Blue Ray Burner", "CPU Air Cooler", "SDRAM DDR4", "Gaming Video Card", "650W Power Supply", "Steel Tower", "Hard Drive", "Booksize Barebone System", "HDMI Cable"};
 	
 	/**
-	 * Martin
+	 * Used to enter a new order.
 	 * @return
 	 */
 	@RequestMapping(value = "/formOrder")
@@ -28,7 +30,93 @@ public class OrderController {
 	}
 	
 	/**
-	 * Martin
+	 * Used to generate a full list of all orders in inventory.
+	 * @return
+	 */
+	@RequestMapping(value = "/viewAll")
+	public ModelAndView viewAll( ){
+		ModelAndView modelAndView = new ModelAndView();
+		List<Order> allOrders = dao.getAllOrders();
+		modelAndView.setViewName("viewAllOrders");
+		modelAndView.addObject("all", allOrders);
+		return modelAndView;
+	}
+	
+	/**
+	 * Used to generate a full inventory list.
+	 * @return
+	 */
+	@RequestMapping(value="/viewCurrentInventory")
+	public ModelAndView viewCurrentInventory() {
+		ModelAndView modelAndView = new ModelAndView();
+		List<ServiceUpdates> fullInventory = dao.getAllInventory();
+		modelAndView.setViewName("inventoryView");
+		modelAndView.addObject("all", fullInventory);
+		return modelAndView;
+	}
+	
+	/**
+	 * 
+	 * Allows a user to see pending deliveries...needs Deliveries.java to work to implement.
+	 * @return
+	 */
+	@RequestMapping(value="/viewPendingDeliveries")
+	public ModelAndView viewPendingDeliveries() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("deliveriesPending");
+		modelAndView.addObject("trackingNumber", new OrderTracking()); //this needs to be changed to utilize Deliveries.java
+		return modelAndView;
+	}
+	
+	/**
+	 * need Deliveries.java functional to complete, works with 
+	 * logisticsCalc.jsp and logistics.jsp
+	 * @return
+	 */
+	@RequestMapping(value="/calculateLogistics")
+	public ModelAndView calculateLogistics() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("logisticsCalc");
+		modelAndView.addObject("logistics", new Deliveries());
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/editInventory")
+	public ModelAndView editInventory() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("inventoryEdit");
+		modelAndView.addObject("available", new ServiceUpdates());
+		return modelAndView;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="/trackOrder")
+	public ModelAndView trackOrder() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("orderTrack");
+		modelAndView.addObject("trackingNumber",new OrderTracking());
+		return modelAndView;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	
+	@RequestMapping(value="/updatedInventoryResult")
+	public ModelAndView updatedInventoryResult( ) {
+		ModelAndView modelAndView = new ModelAndView();
+		//dao.updateProduct(products);
+		modelAndView.setViewName("updatedInventory");
+		return modelAndView;
+	}
+	
+	/**
+	 * 
 	 * @param order
 	 * @return
 	 */
@@ -42,20 +130,10 @@ public class OrderController {
 		return modelAndView;
 	}
 	
-	/**
-	 * Martin
-	 * @return
-	 */
-	@RequestMapping(value="/trackOrder")
-	public ModelAndView trackOrder() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("orderTrack");
-		modelAndView.addObject("trackingNumber",new OrderTracking());
-		return modelAndView;
-	}
+
 	
 	/**
-	 * Martin
+	 * 
 	 * @param trackingNumber
 	 * @return
 	 */
@@ -70,7 +148,7 @@ public class OrderController {
 	}
 	
 	/**
-	 * Mysti **complete**
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value="/serviceSide")
@@ -110,38 +188,15 @@ public class OrderController {
 	@RequestMapping(value="/orderViewResult")
 	public ModelAndView orderViewResult(Integer on) {
 		ModelAndView modelAndView = new ModelAndView();
+		Order orderToDisplay = null;
 		dao.viewOrder(on);
+		
 		modelAndView.setViewName("orderViewResult");
-		modelAndView.addObject("o", order());
+		modelAndView.addObject("o", orderToDisplay);
 		
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/editInventory")
-	public ModelAndView editInventory() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("inventoryEdit");
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value="/viewCurrentInventory")
-	public ModelAndView viewCurrentInventory() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		List<Order> fullInventory = dao.generateList();
-		modelAndView.setViewName("inventoryView");
-		modelAndView.addObject("all", fullInventory);
-		return modelAndView;
-	}
-	
-	@RequestMapping(value="/viewPendingDeliveries")
-	public ModelAndView viewPendingDeliveries() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("deliveryView");
-		
-		return modelAndView;
-	}
+
 	
 	@RequestMapping(value="/viewSalesByProd")
 	public ModelAndView viewSalesByProd() {
@@ -159,13 +214,6 @@ public class OrderController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/calculateLogistics")
-	public ModelAndView calculateLogistics() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("logisticsCalc");
-		
-		return modelAndView;
-	}
 	@Bean
 	public OrderDao dao() {
 		OrderDao bean = new OrderDao();

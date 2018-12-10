@@ -15,7 +15,7 @@
 	        <label>
 	        <span>Product Type:</span></label>
 	        <br />
-	        <input type="radio" name="productType" value="motherboard"> Motherboard<br>   
+	        <input type="radio" name="productType" value="motherboard"> Motherboard<br>  
 	        <input type="radio" name="productType" value="processor"> Processor<br> 
 	        <input type="radio" name="productType" value="solid_state_drive"> Solid State Drive<br>   
 	        <input type="radio" name="productType" value="blue_ray_burner"> Blue Ray Burner<br>   

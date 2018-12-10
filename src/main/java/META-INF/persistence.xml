@@ -3,6 +3,7 @@
 	<persistence-unit name="DijkstrasDryGoods" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>spring.DDG.Order</class>
+		<class>spring.DDG.ServiceUpdates</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/DijkstrasDryGoods?autoReconnect=true&amp;useSSL=false"/>

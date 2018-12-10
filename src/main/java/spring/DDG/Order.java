@@ -157,6 +157,16 @@ public class Order {
 		return ("Order Number: " + orderNumber + "Motherboards: " + mb + "Processors: " + processor + "Solid State Drives: " + ssd + "Bluray Burners: " + BRB + "CPU Air Coolers: " + cac + "SDRAM DDR4: " + sdram + "Gaming Video Cards: " + gvc + "Power Supplies: " + ps + "Steel Towers: " + st + "Hard Drives: " + hd + "Booksize Barebones Systems: " + bbs + "HDMI Cables: " + hc + "Street: " + street + "City: " + city);
 		//missing shipping method choice?
 	}
+	@Override
+	public String toString() {
+		return "Order [orderNumber=" + orderNumber + ", mb=" + mb + ", processor=" + processor + ", ssd=" + ssd
+				+ ", BRB=" + BRB + ", cac=" + cac + ", sdram=" + sdram + ", gvc=" + gvc + ", ps=" + ps + ", st=" + st
+				+ ", hd=" + hd + ", bbs=" + bbs + ", hc=" + hc + ", street=" + street + ", city=" + city + ", zip="
+				+ zip + ", shipType=" + shipType + ", state=" + state + "]";
+	}
+	
+	
+	
 	
 	
 }
